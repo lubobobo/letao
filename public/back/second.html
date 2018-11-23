@@ -30,9 +30,9 @@
         <li><a href="user.html"><i class="glyphicon glyphicon-user"></i><span>用户管理</span></a></li>
         <li>
           <a href="javascript:;" id="category"><i class="glyphicon glyphicon-list"></i><span>分类管理</span></a>
-          <div class="child">
+          <div class="child" style="display:block">
             <a href="first.html">一级分类</a>
-            <a href="second.html">二级分类</a>
+            <a class="currnet" href="second.html">二级分类</a>
           </div>
         </li>
         <li><a href="product.html"><i class="glyphicon glyphicon-tags"></i><span>商品管理</span></a></li>
@@ -51,9 +51,33 @@
       <!-- 链接导航 -->
       <ol class="breadcrumb mt_20">
         <li><a href="index.html">管理系统</a></li>
-        <li class="active">首页</li>
+        <li class="active">分类管理</li>
+        <li class="active">二级分类</li>
       </ol>
       
+      <!-- 内容区 -->
+      <div class="main_content">
+        <button class="btn btn-default" id="addBtn">添加分类</button>
+
+        <table class="table table-bordered table-hover mt_20">
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>一级分类名称</th>
+              <th>二级分类名称</th>
+              <th>二级分类LOGO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 挖个洞 -->
+          </tbody>
+        </table>
+
+        <!-- 分页插件容器 -->
+        <div class="text-right">
+          <ul id="paginator"></ul>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -79,14 +103,30 @@
     </div>
   </div>
 
-
+ 
+  <!-- 页面渲染模板 -->
+  <script type="text/html" id="secondTmp">
+    {{ each rows v i}}
+        <tr>
+          <td>{{ i+1 + (page-1)*size }}</td>
+          <td>{{ v.categoryName }}</td>
+          <td>{{ v.brandName }}</td>
+          <td>
+            <img style="height: 50px;" src="{{ v.brandLogo }}" alt="">
+          </td>
+        </tr>
+    {{ /each }} 
+  </script>
 
   <script src="./lib/jquery/jquery.min.js"></script>
   <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
   <script src="./lib/bootstrap-validator/js/bootstrapValidator.min.js"></script>
+  <script src="./lib/bootstrap-paginator/bootstrap-paginator.min.js"></script>
   <script src="./lib/nprogress/nprogress.js"></script>
+  <script src="./lib/artTemplate/template-web.js"></script>
   <script src="./js/common.js"></script>
   <script src="./js/isLogin.js"></script>
+  <script src="./js/second.js"></script>
   
 
 
