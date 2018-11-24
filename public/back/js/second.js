@@ -34,12 +34,12 @@ $(function () {
 
           bootstrapMajorVersion: 3,
           currentPage: info.page,
-          totalPage: Math.ceil(info.total / info.size),
+          totalPages: Math.ceil(info.total / info.size),
 
           // 给每个页码添加点击事件
           onPageClicked: function (a, b, c, page) {
             // 更新当期页, 并且重新渲染
-            currentPage: page;
+            currentPage = page;
             render();
           }
 
@@ -157,6 +157,45 @@ $(function () {
       }
     }
   })
+
+
+
+  //功能8. 注册表单校验成功事件, 阻止默认的提交, 通过 ajax 提交
+  $("#form").on("success.form.bv", function ( e ) { 
+
+      // 阻止表单默认的提交
+      e.preventDefault();
+
+      //通过 ajax 提交
+      $.ajax({
+        type: "post",
+        url: "/category/addSecondCategory",
+        data: $("#form").serialize(),
+        dataType: "json",
+        success: function ( info ) { 
+          console.log(info);
+
+          if( info.success ) {
+            // 成功 关闭模态框
+            $("#addModal").modal("hide");
+
+            // 重新更新当前页
+            currentPage = 1;
+            render();
+
+
+            //重置表单内容和状态
+            $("#form").data("bootstrapValidator").resetForm(true);
+
+            // 由于下拉框 和 图片 不是表单元素 需要手动重置
+            $("#dropdownText").text("请选择一级分类");
+            $("#imgBox img").attr("src", "./images/none.png");
+          }
+         }
+      })
+
+
+   })
 
 
 })
